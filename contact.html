@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Contact – Market Mafiaa</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #ffffff;
+      color: #222222;
+      transition: background 0.3s ease;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1A73E8, #9C27B0);
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    header img {
+      width: 160px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      transition: transform 0.3s ease;
+    }
+
+    header img:hover {
+      transform: scale(1.05);
+    }
+
+    main {
+      max-width: 850px;
+      margin: auto;
+      padding: 50px 20px;
+      line-height: 1.8;
+    }
+
+    h1 {
+      color: #ffffff;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    h2 {
+      color: #000000;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+ h2:hover {
+      color: #00BCD4;
+      letter-spacing: 1px;
+      cursor: pointer;
+    }
+ h2:hover::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 100%;
+      height: 2px;
+      background: #00BCD4;
+      transition: width 0.3s ease;
+    }
+
+    .contact-details p {
+      font-size: 18px;
+      margin: 10px 0;
+    }
+
+    .contact-details i {
+      margin-right: 10px;
+      color: #1A73E8;
+    }
+
+    .social-icons a {
+      margin-right: 12px;
+      font-size: 20px;
+      color: #222;
+      transition: color 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      color: #9C27B0;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    input, textarea {
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      transition: border-color 0.3s ease;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #9C27B0;
+      outline: none;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, #1A73E8, #9C27B0);
+      color: white;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #00BCD4;
+    }
+
+    #msg {
+      font-weight: bold;
+      color: #1A73E8;
+      margin-top: 10px;
+    }
+
+    footer {
+      background-color: #f0f0f0;
+      text-align: center;
+      padding: 25px;
+      font-size: 14px;
+      color: #666;
+      border-top: 3px solid #9C27B0;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+   <a href="index.html">
+    <img src="market-mafiaa-header.png" alt="Market Mafiaa Logo" />
+  </a>
+
+    <h1>Contact Market Mafiaa</h1>
+    <p>Building clarity, trust, and impact through every connection</p>
+  </header>
+
+  <main>
+    <h2>📧 Reach Out</h2>
+    <div class="contact-details">
+      <p><i class="fa-regular fa-envelope"></i> marketmafia09@gmail.com</p>
+      <p><i class="fa-solid fa-phone"></i> +91 7296080385</p>
+      <div class="social-icons">
+        <a href="https://www.instagram.com/marketmafiaa?igsh=d3g1a3Y4cXUzN2J6"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://www.linkedin.com/company/marketmafiaa/"><i class="fa-brands fa-linkedin"></i></a>
+      </div>
+    </div>
+
+    <h2>✍️ Send a Message</h2>
+    <form name="submit-to-google-sheet">
+      <input type="text" name="Name" placeholder="Your Name" required />
+      <input type="email" name="Email" placeholder="Your Email" required />
+      <textarea name="Message" rows="6" placeholder="Your Message" required></textarea>
+      <button type="submit" class="btn">Send Message</button>
+    </form>
+    <span id="msg"></span>
+  </main>
+
+  <footer>
+    &copy; 2025 Market Mafiaa • Every interaction reflects our values • All rights reserved.
+  </footer>
+
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzn1zFKIferGY1KdH9HPpvM_nKeJAjEk4e5CDzO6jH6eMlmlXIU_BJWqDdLq3nV_PCQkw/exec';
+    const form = document.forms['submit-to-google-sheet'];
+    const msg = document.getElementById("msg");
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+        .then(response => {
+          msg.textContent = "✅ Message sent successfully!";
+          msg.style.color = "#1A73E8";
+          setTimeout(() => { msg.textContent = ""; }, 5000);
+          form.reset();
+        })
+        .catch(error => {
+          msg.textContent = "❌ Something went wrong. Try again.";
+          msg.style.color = "#d32f2f";
+          console.error('Error!', error.message);
+        });
+    });
+  </script>
+
+</body>
+</html>
